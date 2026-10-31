@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <texts>
+        <text name="input_ORCHARD_AI" text="IA vergers démarrer / arrêter"/>
+        <text name="oa_needVehicle" text="Montez d'abord dans votre machine"/>
+        <text name="oa_noRows" text="Aucun rang de vigne, d'olivier ou de café trouvé près de la machine"/>
+        <text name="oa_started" text="IA vergers démarrée : %d rangs"/>
+        <text name="oa_stopped" text="IA vergers arrêtée"/>
+        <text name="oa_done" text="IA vergers : tous les rangs sont faits"/>
+        <text name="oa_full" text="IA vergers : trémie pleine, arrêt"/>
+        <text name="oa_row" text="IA vergers : rang %d sur %d"/>
+        <text name="oa_obstacle" text="IA vergers : %s gêne le passage, attente"/>
+        <text name="oa_blocked" text="IA vergers : bloquée, arrêt"/>
+        <text name="oa_stuck" text="IA vergers : coincée, marche arrière pour réessayer"/>
+        <text name="oa_skip" text="IA vergers : passage impossible, contournement"/>
+        <text name="oa_newRoute" text="IA vergers : passage bloqué, autre itinéraire (%d sur %d)"/>
+        <text name="oa_travel" text="IA vergers : trajet vers la plantation (%d m), puis début du travail"/>
+        <text name="oa_travelFail" text="IA vergers : l'assistant n'a pas pu rejoindre la plantation"/>
+        <text name="oa_noPlantation" text="IA vergers : vous n'avez aucune plantation de vigne, d'olivier ou de café"/>
+    </texts>
+</l10n>

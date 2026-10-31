@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <texts>
+        <text name="input_ORCHARD_AI" text="Plantagen KI Start / Stopp"/>
+        <text name="oa_needVehicle" text="Steige zuerst in deine Plantagenmaschine"/>
+        <text name="oa_noRows" text="Keine Wein-, Oliven- oder Kaffeereihen in der Nähe gefunden"/>
+        <text name="oa_started" text="Plantagen KI gestartet: %d Reihen"/>
+        <text name="oa_stopped" text="Plantagen KI gestoppt"/>
+        <text name="oa_done" text="Plantagen KI: alle Reihen fertig"/>
+        <text name="oa_full" text="Plantagen KI: Tank voll, angehalten"/>
+        <text name="oa_row" text="Plantagen KI: Reihe %d von %d"/>
+        <text name="oa_obstacle" text="Plantagen KI: %s im Weg, warte"/>
+        <text name="oa_blocked" text="Plantagen KI: blockiert, angehalten"/>
+        <text name="oa_stuck" text="Plantagen KI: festgefahren, setzt zurück"/>
+        <text name="oa_skip" text="Plantagen KI: kein Durchkommen, fährt drum herum"/>
+        <text name="oa_newRoute" text="Plantagen KI: Weg blockiert, versucht andere Route (%d von %d)"/>
+        <text name="oa_travel" text="Plantagen KI: fährt zur Plantage (%d m) und beginnt dann mit der Arbeit"/>
+        <text name="oa_travelFail" text="Plantagen KI: der Helfer konnte nicht zur Plantage fahren"/>
+        <text name="oa_noPlantation" text="Plantagen KI: du hast keine Wein-, Oliven- oder Kaffeeplantage"/>
+    </texts>
+</l10n>

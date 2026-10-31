@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <texts>
+        <text name="input_ORCHARD_AI" text="Orchard AI start / stop"/>
+        <text name="oa_needVehicle" text="Get in your orchard machine first"/>
+        <text name="oa_noRows" text="No vine, olive or coffee rows found near the machine"/>
+        <text name="oa_started" text="Orchard AI started: %d rows"/>
+        <text name="oa_stopped" text="Orchard AI stopped"/>
+        <text name="oa_done" text="Orchard AI: all rows done"/>
+        <text name="oa_full" text="Orchard AI: tank full, stopped"/>
+        <text name="oa_row" text="Orchard AI: row %d of %d"/>
+        <text name="oa_obstacle" text="Orchard AI: %s in the way, waiting"/>
+        <text name="oa_blocked" text="Orchard AI: blocked, stopped"/>
+        <text name="oa_stuck" text="Orchard AI: stuck, backing up to try again"/>
+        <text name="oa_skip" text="Orchard AI: cannot pass, going around"/>
+        <text name="oa_newRoute" text="Orchard AI: way blocked, trying another route (%d of %d)"/>
+        <text name="oa_travel" text="Orchard AI: driving to the plantation (%d m), then it starts working"/>
+        <text name="oa_travelFail" text="Orchard AI: the helper could not drive to the plantation"/>
+        <text name="oa_noPlantation" text="Orchard AI: you have no vine, olive or coffee plantation"/>
+    </texts>
+</l10n>
