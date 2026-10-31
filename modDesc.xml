@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="115">
+    <author>FS Modding</author>
+    <version>1.0.0.0</version>
+    <title>
+        <en>Orchard AI Driver</en>
+        <de>Plantagen KI Fahrer</de>
+        <fr>Pilote IA Pour Vergers</fr>
+    </title>
+    <description>
+        <en><![CDATA[Orchard AI Driver drives your machine through vineyards, olive groves and coffee rows on its own, row by row, with turns at the headland. The base game helper cannot work in these crops, this mod can.
+
+HOW IT WORKS
+1. Sit in your grape harvester, olive harvester, coffee harvester, pruner or sprayer, near the rows.
+2. Press H (the normal helper key) or Alt + V. The mod finds the plantation by itself: first and last row, the length of every row and the distance between rows. Then it plans a route and starts driving.
+3. In the rows the machine is lowered and turned on, on the headland it is lifted.
+4. It stops on its own when the tank is full or when all rows are done.
+
+FROM THE FARM
+Press H far away from your plantation (at the farm, for example): the helper drives the machine to your nearest plantation by itself, lines up with the first row and starts working.
+
+The route is shown on the ground: green = work, orange = turn.
+
+CONTROLS
+- H or Alt + V: start / stop
+- Console: vaSpeed 10 7, vaRadius 4, vaSteerSign
+
+Every second row on the way out, the rows in between on the way back. If the turn is blocked, it backs up and tries another way.
+You can leave the cab: a farmer takes your seat and the machine keeps working.
+
+Multiplayer supported.
+Languages: English, German, French.]]></en>
+        <de><![CDATA[Der Plantagen KI Fahrer fährt deine Maschine selbstständig durch Weinberge, Olivenhaine und Kaffeereihen, Reihe für Reihe, mit Wendemanövern am Vorgewende. Der Helfer des Grundspiels kann in diesen Kulturen nicht arbeiten, dieser Mod schon.
+
+SO FUNKTIONIERT ES
+1. Setz dich in deinen Traubenvollernter, Olivenernter, Kaffeeernter, Rebschneider oder Sprüher, nahe an die Reihen.
+2. Drücke H (die normale Helfer Taste) oder Alt + V. Der Mod erkennt die Plantage selbst: erste und letzte Reihe, die Länge jeder Reihe und den Reihenabstand. Dann plant er eine Route und fährt los.
+3. In den Reihen wird die Maschine abgesenkt und eingeschaltet, am Vorgewende angehoben.
+4. Er hält von selbst an, wenn der Tank voll ist oder alle Reihen fertig sind.
+
+VOM HOF AUS
+Drücke H weit weg von deiner Plantage (zum Beispiel auf dem Hof): der Helfer fährt die Maschine selbst zu deiner nächsten Plantage, richtet sich an der ersten Reihe aus und beginnt mit der Arbeit.
+
+Die Route wird auf dem Boden angezeigt: grün = Arbeit, orange = Wenden.
+
+STEUERUNG
+- H oder Alt + V: Start / Stopp
+- Konsole: vaSpeed 10 7, vaRadius 4, vaSteerSign
+
+Auf dem Hinweg jede zweite Reihe, auf dem Rückweg die Reihen dazwischen. Ist das Wenden blockiert, setzt er zurück und versucht einen anderen Weg.
+Du kannst aussteigen: ein Landwirt übernimmt deinen Platz und die Maschine arbeitet weiter.
+
+Mehrspieler unterstützt.
+Sprachen: Englisch, Deutsch, Französisch.]]></de>
+        <fr><![CDATA[Pilote IA pour vergers conduit votre machine seule dans les vignes, les oliveraies et les rangs de café, rang par rang, avec les demi-tours en bout de champ. L'assistant du jeu de base ne peut pas travailler dans ces cultures, ce mod le peut.
+
+FONCTIONNEMENT
+1. Installez-vous dans votre machine à vendanger, récolteuse d'olives, récolteuse de café, tailleuse ou pulvérisateur, près des rangs.
+2. Appuyez sur H (la touche habituelle de l'assistant) ou Alt + V. Le mod reconnaît la plantation tout seul : premier et dernier rang, longueur de chaque rang et écartement. Puis il prépare un trajet et démarre.
+3. Dans les rangs, la machine est abaissée et mise en marche, en bout de champ elle est relevée.
+4. Il s'arrête tout seul quand la trémie est pleine ou quand tous les rangs sont faits.
+
+DEPUIS LA FERME
+Appuyez sur H loin de votre plantation (à la ferme, par exemple) : l'assistant conduit la machine jusqu'à votre plantation la plus proche, s'aligne sur le premier rang et commence le travail.
+
+Le trajet est affiché au sol : vert = travail, orange = demi-tour.
+
+COMMANDES
+- H ou Alt + V : démarrer / arrêter
+- Console : vaSpeed 10 7, vaRadius 4, vaSteerSign
+
+Un rang sur deux à l'aller, les rangs restants au retour. Si le demi-tour est bloqué, la machine recule et essaie un autre chemin.
+Vous pouvez quitter la cabine : un agriculteur prend votre place et la machine continue de travailler.
+
+Multijoueur pris en charge.
+Langues : anglais, allemand, français.]]></fr>
+    </description>
+    <iconFilename>icon_OrchardAI.dds</iconFilename>
+    <multiplayer supported="true"/>
+    <l10n filenamePrefix="l10n/l10n"/>
+    <actions>
+        <action name="ORCHARD_AI" category="VEHICLE"/>
+    </actions>
+    <inputBinding>
+        <actionBinding action="ORCHARD_AI"><binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_v" axisComponent="+"/></actionBinding>
+    </inputBinding>
+    <extraSourceFiles>
+        <sourceFile filename="orchardai.lua"/>
+    </extraSourceFiles>
+</modDesc>
