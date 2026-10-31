@@ -17,5 +17,6 @@
         <text name="oa_travel" text="Plantagen KI: fährt zur Plantage (%d m) und beginnt dann mit der Arbeit"/>
         <text name="oa_travelFail" text="Plantagen KI: der Helfer konnte nicht zur Plantage fahren"/>
         <text name="oa_noPlantation" text="Plantagen KI: du hast keine Wein-, Oliven- oder Kaffeeplantage"/>
+        <text name="oa_wrongCrop" text="Plantagen KI: keine passende Plantage für diese Maschine in der Nähe (sie erntet: %s)"/>
     </texts>
 </l10n>

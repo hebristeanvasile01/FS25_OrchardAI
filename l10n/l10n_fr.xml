@@ -17,5 +17,6 @@
         <text name="oa_travel" text="IA vergers : trajet vers la plantation (%d m), puis début du travail"/>
         <text name="oa_travelFail" text="IA vergers : l'assistant n'a pas pu rejoindre la plantation"/>
         <text name="oa_noPlantation" text="IA vergers : vous n'avez aucune plantation de vigne, d'olivier ou de café"/>
+        <text name="oa_wrongCrop" text="IA vergers : aucune plantation adaptée à cette machine à proximité (elle récolte : %s)"/>
     </texts>
 </l10n>

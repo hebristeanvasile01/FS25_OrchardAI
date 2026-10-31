@@ -17,5 +17,6 @@
         <text name="oa_travel" text="Orchard AI: driving to the plantation (%d m), then it starts working"/>
         <text name="oa_travelFail" text="Orchard AI: the helper could not drive to the plantation"/>
         <text name="oa_noPlantation" text="Orchard AI: you have no vine, olive or coffee plantation"/>
+        <text name="oa_wrongCrop" text="Orchard AI: no plantation for this machine nearby (it harvests: %s)"/>
     </texts>
 </l10n>
