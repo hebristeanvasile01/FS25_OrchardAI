@@ -84,6 +84,86 @@ end
 
 -- ---------------------------------------------------------------- rows from the game (vine system)
 
+-- ---------------------------------------------------------------- which crop: machine and plantation
+
+local function fruitName(index)
+    if g_fruitTypeManager == nil or type(index) ~= "number" then return nil end
+    local ft = g_fruitTypeManager:getFruitTypeByIndex(index)
+    return ft ~= nil and ft.name or nil
+end
+
+-- collects fruit type indices from the spec tables of an object (fields named fruitType / fruitTypes / fruitTypeIndex)
+local function collectFruits(object, out)
+    for key, spec in pairs(object) do
+        if type(key) == "string" and string.sub(key, 1, 5) == "spec_" and type(spec) == "table" then
+            for k, v in pairs(spec) do
+                if type(k) == "string" and not string.find(string.lower(k), "current", 1, true) then
+                    local lk = string.lower(k)
+                    if lk == "fruittype" or lk == "fruittypeindex" then
+                        if type(v) == "number" then out[v] = true
+                        elseif type(v) == "table" and type(v.index) == "number" then out[v.index] = true end
+                    elseif lk == "fruittypes" and type(v) == "table" then
+                        for a, b in pairs(v) do
+                            if type(b) == "number" then out[b] = true
+                            elseif type(a) == "number" and b == true then out[a] = true
+                            elseif type(b) == "table" and type(b.index) == "number" then out[b.index] = true end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- crop names (GRAPE, OLIVE, COFFEE...) the machine can harvest; nil = unknown (no limit)
+function OrchardAI:machineCrops(vehicle)
+    local found = {}
+    for _, v in ipairs(allVehicles(vehicle)) do collectFruits(v, found) end
+    local names, list = {}, {}
+    for index in pairs(found) do
+        local n = fruitName(index)
+        if n ~= nil then names[n] = true; table.insert(list, n) end
+    end
+    -- machine names as a backup: grape / olive / coffee specs
+    if #list == 0 then
+        for _, v in ipairs(allVehicles(vehicle)) do
+            for key in pairs(v) do
+                if type(key) == "string" and string.sub(key, 1, 5) == "spec_" then
+                    local k = string.lower(key)
+                    if string.find(k, "olive", 1, true) then names.OLIVE = true end
+                    if string.find(k, "coffee", 1, true) then names.COFFEE = true end
+                    if string.find(k, "grape", 1, true) then names.GRAPE = true end
+                end
+            end
+        end
+        for n in pairs(names) do table.insert(list, n) end
+    end
+    table.sort(list)
+    Logging.info("[OrchardAI] %s harvests: %s", vehicle:getName(), #list > 0 and table.concat(list, ", ") or "unknown (all plantations allowed)")
+    return #list > 0 and names or nil
+end
+
+-- crop name of a plantation
+function OrchardAI:plantationCrop(placeable)
+    if placeable.oaCrop ~= nil then return placeable.oaCrop or nil end
+    local found = {}
+    collectFruits(placeable, found)
+    local name = nil
+    for index in pairs(found) do name = fruitName(index) or name end
+    placeable.oaCrop = name or false
+    Logging.info("[OrchardAI] plantation %s grows %s", placeable.getName ~= nil and placeable:getName() or "?", tostring(name))
+    return name
+end
+
+-- only plantations of the crop this machine harvests
+function OrchardAI:plantationAllowed(placeable)
+    local allowed = self.allowedCrops
+    if allowed == nil then return true end
+    local crop = self:plantationCrop(placeable)
+    if crop == nil then return true end
+    return allowed[crop] == true
+end
+
 -- returns list of rows { ax, az, bx, bz } (centre lines) or nil
 function OrchardAI:rowsFromVineSystem(vehicle, atX, atZ)
     local system = g_currentMission.vineSystem
@@ -96,7 +176,8 @@ function OrchardAI:rowsFromVineSystem(vehicle, atX, atZ)
     if atX ~= nil then vx, vz = atX, atZ end
     local segments = {}
     for node, placeable in pairs(system.nodes) do
-        if type(node) == "number" and entityExists(node) and placeable ~= nil and placeable.getVineAreaByNode ~= nil then
+        if type(node) == "number" and entityExists(node) and placeable ~= nil and placeable.getVineAreaByNode ~= nil
+            and OrchardAI:plantationAllowed(placeable) then
             local sx, sz, wx, wz, hx, hz = placeable:getVineAreaByNode(node)
             if sx ~= nil and hx ~= nil then
                 -- area = parallelogram start / width / height
@@ -238,7 +319,8 @@ function OrchardAI:trimRowsToVines(rows, dx, dz, px, pz)
     if system == nil or system.nodes == nil then return 0 end
     local centres = {}
     for node, placeable in pairs(system.nodes) do
-        if type(node) == "number" and entityExists(node) and placeable ~= nil and placeable.getVineAreaByNode ~= nil then
+        if type(node) == "number" and entityExists(node) and placeable ~= nil and placeable.getVineAreaByNode ~= nil
+            and OrchardAI:plantationAllowed(placeable) then
             local sx, sz, wx, wz, hx, hz = placeable:getVineAreaByNode(node)
             if sx ~= nil and hx ~= nil then
                 local corners = { { sx, sz }, { wx, wz }, { hx, hz }, { wx + hx - sx, wz + hz - sz } }
@@ -487,13 +569,20 @@ end
 
 function OrchardAI:start(vehicleArg)
     local vehicle = vehicleArg or getControlledVehicle()
+    if vehicle ~= nil then self.allowedCrops = self:machineCrops(vehicle) end
     if vehicle == nil then
         warn(g_i18n:getText("oa_needVehicle"))
         return
     end
     local rows = self:rowsFromVineSystem(vehicle)
     if rows == nil or #rows == 0 then
-        warn(g_i18n:getText("oa_noRows"))
+        if self.allowedCrops ~= nil then
+            local list = {}
+            for n in pairs(self.allowedCrops) do table.insert(list, n) end
+            warn(string.format(g_i18n:getText("oa_wrongCrop"), table.concat(list, ", ")))
+        else
+            warn(g_i18n:getText("oa_noRows"))
+        end
         return
     end
     self.vehicle = vehicle
@@ -572,6 +661,7 @@ end
 
 -- nearest plantation of your farm: a point in it
 function OrchardAI:findPlantation(vehicle)
+    self.allowedCrops = self:machineCrops(vehicle)
     local system = g_currentMission.vineSystem
     if system == nil or system.nodes == nil then return nil end
     local farmId = g_currentMission.getFarmId ~= nil and g_currentMission:getFarmId() or 1
@@ -579,7 +669,8 @@ function OrchardAI:findPlantation(vehicle)
     local best, bestD = nil, math.huge
     local anyBest, anyD = nil, math.huge
     for node, placeable in pairs(system.nodes) do
-        if type(node) == "number" and entityExists(node) and placeable ~= nil and placeable.getVineAreaByNode ~= nil then
+        if type(node) == "number" and entityExists(node) and placeable ~= nil and placeable.getVineAreaByNode ~= nil
+            and OrchardAI:plantationAllowed(placeable) then
             local owner = placeable.getOwnerFarmId ~= nil and placeable:getOwnerFarmId() or farmId
             local sx0, sz0, wx0, wz0, hx0, hz0 = placeable:getVineAreaByNode(node)
             if sx0 ~= nil and hx0 ~= nil then

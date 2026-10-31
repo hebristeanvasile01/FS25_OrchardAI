@@ -6,6 +6,7 @@ Press **H** in your grape, olive or coffee harvester and the machine works the w
 ![icon](icon_preview.png)
 
 ## Features
+- **Right crop only**: a grape harvester works only vineyards, an olive harvester only olives, a coffee harvester only coffee
 - **Finds the plantation by itself**: first and last row, the length of every row and the distance between rows
 - **Drives from the farm**: press H far away from your plantation and the helper drives there on its own, lines up with the first row and starts working
 - **Smart row order**: every second row on the way out, the rows in between on the way back
